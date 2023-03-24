@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,7 +13,10 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Menus/Index');
+        $menus = Menu::latest()->get();
+        return Inertia::render('Menus/Index', [
+            'menus' => $menus
+        ]);
     }
 
     /**
@@ -20,7 +24,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Menus/Create');
     }
 
     /**
@@ -28,7 +32,20 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required',
+            'image' => 'mimes:jpg,jpeg,png,gif'
+        ]);
+        $image = $request->file('image');
+        $ext = '.' . $request->image->getClientOriginalExtension();
+        $fileName = str_replace($ext, "-" . date('d-m-Y-H-i') . $ext, $request->image->getClientOriginalName());
+
+        $fileImage = $request->file('image')->storeAs('public', $fileName);
+        $filePath = "/storage/" . $fileName;
+        $validation['image'] = $filePath;
+        Menu::create($validation);
+        return redirect('/menus')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -44,7 +61,10 @@ class MenuController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $menu = Menu::find($id);
+        return Inertia::render('Menus/Edit', [
+            'menu' => $menu
+        ]);
     }
 
     /**
@@ -52,7 +72,30 @@ class MenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $validation = $request->validate([
+            'name' => 'required|max:255',
+            'price' => 'required',
+            'image' => 'nullable|mimes:jpg,jpeg,png,gif'
+        ]);
+
+        $menu = Menu::find($id);
+        $menu->name = $validation['name'];
+        $menu->price = $validation['price'];
+        
+        if ($request->image) {
+            $image = $request->file('image');
+            $ext = '.' . $request->image->getClientOriginalExtension();
+            $fileName = str_replace($ext, "-" . date('d-m-Y-H-i') . $ext, $request->image->getClientOriginalName());
+
+            $fileImage = $request->file('image')->storeAs('public', $fileName);
+            $filePath = "/storage/" . $fileName;
+            $validation['image'] = $filePath;
+            $menu->image = $filePath;
+        }
+        $menu->save();
+
+        return  redirect('/menus')->with('success', 'Data berhasil diubah!');
     }
 
     /**

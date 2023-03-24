@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,6 +16,6 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Hello');
-});
+Route::get('/', [OrderController::class, 'index'])->name("orders.create");
+
+Route::resource('/menus', MenuController::class);

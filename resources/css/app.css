@@ -4,6 +4,13 @@
 
 @layer components {
     .grid-menu {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+    
+    .text-overflow-ellipsis {
+        @apply whitespace-nowrap overflow-hidden break-words text-ellipsis;
+    }
+    input[type=file]::-webkit-file-upload-button {
+        @apply bg-gray-800 text-white h-10 border-none px-4
     }
 }
