@@ -13,9 +13,8 @@ function MenusIndex({ menus }) {
   const [selectedItem, setSelectedItem] = useState(null)
 
   function deleteMenu() {
-    console.log("delete " + selectedItem.name)
     var p = router.delete(`/menus/${selectedItem.id}`)
-    console.log(p)
+    closeModal()
   }
 
   function openModal(menu) {
