@@ -1,22 +1,43 @@
 import { Head, Link, usePage } from '@inertiajs/react'
 import { Add } from 'iconsax-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import DeleteConfirmation from '../../Components/DeleteConfirmation'
 import Layout from '../../Components/Layout'
 import Toast from '../../Components/Toast'
 import { formatCurrency } from '../../Utils'
+import { router } from '@inertiajs/react'
 
 function MenusIndex({ menus }) {
   const { flash } = usePage().props
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null)
+
+  function deleteMenu() {
+    console.log("delete " + selectedItem.name)
+    var p = router.delete(`/menus/${selectedItem.id}`)
+    console.log(p)
+  }
+
+  function openModal(menu) {
+    setSelectedItem(menu)
+    setDeleteModal(true)
+  }
+
+  function closeModal() {
+    setDeleteModal(false)
+  }
+
   return (
     <Layout>
       <Head title="Kelola Menu" />
       <div className='bg-gray-100 min-h-screen p-5'>
-        <h1 className='text-xl font-bold mb-4'>Kelola Menu</h1>
+        {deleteModal && (
+        <DeleteConfirmation onYesClick={deleteMenu} onCloseClick={closeModal} message={`Apakah Anda yakin akan menghapus ${selectedItem.name}?`} />
+        )}
+        <h1 className='text-xl font-bold mb-5'>Kelola Menu</h1>
         <div className='bg-white min-h-screen rounded-lg p-3'>
 
-          
-
-          <Link href={route('menus.create')} className='w-fit bg-blue-500 text-white mb-4 rounded px-3 py-2 flex items-center'><Add size={24} />Tambah</Link>
+          <Link href={route('menus.create')} className='w-fit m-2 bg-blue-500 text-white mb-4 rounded px-3 py-2 flex items-center'><Add size={24} />Tambah</Link>
           {flash.success && (
             <Toast message={flash.success} />
           )}
@@ -55,8 +76,9 @@ function MenusIndex({ menus }) {
                       {formatCurrency(menu.price)}
                     </td>
 
-                    <td className="px-6 py-4 text-right">
-                      <Link href={route('menus.edit', {menu: menu.id})} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
+                    <td className="px-6 py-4 text-end">
+                      <Link href={route('menus.edit', {menu: menu.id})} className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1">Edit</Link>
+                      <button onClick={() => {openModal(menu)}} className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1">Hapus</button>
                     </td>
                   </tr>
                 ))}

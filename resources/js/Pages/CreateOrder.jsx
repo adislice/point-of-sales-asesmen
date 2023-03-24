@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { formatCurrency } from '../Utils';
 import SaveBillModal from '../Components/SaveBillModal';
 import Layout from '../Components/Layout';
+import ChargeModal from '../Components/ChargeModal';
 
 
 
@@ -14,6 +15,7 @@ function CreateOrder({ products }) {
   const [subtotal, setSubtotal] = useState(0)
   const [total, setTotal] = useState(0)
   const [saveBillModalOpen, setSaveBillModalOpen] = useState(false)
+  const [chargeModalOpen, setChargeModalOpen] = useState(false)
 
   useEffect(() => {
     var subt = orders.reduce((n, { price, quantity }) => n + (price * quantity), 0)
@@ -28,10 +30,10 @@ function CreateOrder({ products }) {
     const checkIndex = orders.findIndex(item => item.id == menu.id)
     if (checkIndex !== -1) {
       const p = orders.filter(item => item.id === menu.id)
-      console.log("sudah ada, jumlahnya ")
+      // item sudah ada
       setOrders(orders.map(el => el.id == menu.id ? { ...el, quantity: el.quantity + 1 } : el))
     } else {
-      console.log("belum ada")
+      // item belum ada
       setOrders(prevState => [...prevState, {
         id: menu.id,
         name: menu.name,
@@ -46,19 +48,12 @@ function CreateOrder({ products }) {
     setOrders([])
   }
 
-  function openSaveBill() {
-    setSaveBillModalOpen(true)
-  }
-
-  function closeSaveBill() {
-    setSaveBillModalOpen(false)
-  }
-
   return (
     <Layout>
       <Head title="Order Baru" />
-      {saveBillModalOpen ? <SaveBillModal handleClose={closeSaveBill} /> : null}
-      
+      {saveBillModalOpen && <SaveBillModal handleClose={() => setSaveBillModalOpen(false)} />}
+
+      {chargeModalOpen && <ChargeModal total={total} onCloseClick={() => setChargeModalOpen(false)} /> }
       <div className="flex bg-gray-100 min-h-screen print:min-h-fit">
         <div className="w-8/12 p-5 print:hidden">
 
@@ -75,7 +70,7 @@ function CreateOrder({ products }) {
               <div className='font-semibold text-2xl mx-auto hidden print:block'>Bill</div>
             </div>
             <div className="flex items-center border-b border-gray-200 p-1">
-              <button className="flex items-center justify-center w-full rounded px-3 py-2 hover:bg-gray-200">Dine In <ArrowDown2 size="16" color="#226BC5" className='print:hidden'/></button>
+              <button className="flex items-center justify-center w-full rounded px-3 py-2 hover:bg-gray-200">Dine In <ArrowDown2 size="16" color="#226BC5" className='print:hidden' /></button>
             </div>
             <div className="p-3  border-gray-200 overflow-y-auto">
               {orders.length > 0 ? (
@@ -95,11 +90,11 @@ function CreateOrder({ products }) {
               ) : (
                 <div className='text-center'>Order Masih Kosong</div>
               )}
-              
+
 
             </div>
             <div className="p-3 border-t border-gray-200 mt-auto">
-            <div className='flex flex-row justify-between py-2'>
+              <div className='flex flex-row justify-between py-2'>
                 <div>Sub-Total :</div>
                 <div>{formatCurrency(subtotal)}</div>
               </div>
@@ -112,12 +107,12 @@ function CreateOrder({ products }) {
               <button className='text-gray-800 p-2 text-center w-full rounded hover:bg-gray-200' onClick={clearOrders}>Clear Sale</button>
             </div>
             <div className='border-b p-1 border-gray-200 flex gap-1 print:hidden'>
-              <button className='text-gray-800 p-2 text-center w-full rounded bg-indigo-100 hover:bg-indigo-200 border-r border-white' onClick={openSaveBill}>Save Bill</button>
+              <button className='text-gray-800 p-2 text-center w-full rounded bg-indigo-100 hover:bg-indigo-200 border-r border-white' onClick={() => setSaveBillModalOpen(true)}>Save Bill</button>
               <button className='text-gray-800 p-2 text-center w-full rounded bg-indigo-100 hover:bg-indigo-200' onClick={() => window.print()}>Print Bill</button>
 
             </div>
             <div className='border-b p-1 border-gray-200 flex gap-1 print:hidden'>
-              <button className='text-white p-4 text-2xl text-center rounded w-full bg-indigo-600 hover:bg-indigo-700' onClick={clearOrders}>Charge {formatCurrency(total)}</button>
+              <button className='text-white p-4 text-2xl text-center rounded w-full bg-indigo-600 hover:bg-indigo-700' onClick={() => setChargeModalOpen(true)}>Charge {formatCurrency(total)}</button>
 
             </div>
             <div className="hidden print:block text-center text-xl m-2">
