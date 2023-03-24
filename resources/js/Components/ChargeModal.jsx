@@ -17,10 +17,10 @@ function ChargeModal({ total, onCloseClick }) {
         <div className="relative bg-white rounded-lg shadow ">
 
           <div className="flex items-start justify-between px-4 py-3 border-b rounded-t ">
-            <h3 className="text-xl font-semibold text-gray-900 ">
+            <h3 className="text-xl font-bold text-gray-900 font-raleway">
               Charge
             </h3>
-            <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-hide="staticModal">
+            <button type="button" onClick={onCloseClick} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-hide="staticModal">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-5 h-5"
@@ -55,8 +55,8 @@ function ChargeModal({ total, onCloseClick }) {
           </div>
 
 
-          <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-            <button data-modal-hide="staticModal" type="button" onClick={onCloseClick} className="ml-auto text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 ">Tutup</button>
+          <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+            <button data-modal-hide="staticModal" type="button" onClick={onCloseClick} className="ml-auto bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 ">Tutup</button>
           </div>
         </div>
       </div>

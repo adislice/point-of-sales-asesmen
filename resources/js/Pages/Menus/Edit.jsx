@@ -19,7 +19,7 @@ function MenusEdit({menu, errors}) {
     <Layout>
       <Head title="Edit Menu" />
       <div className="bg-gray-100 min-h-screen p-5">
-        <h1 className='text-xl font-bold mb-5'>Ubah Menu</h1>
+        <h1 className='text-xl font-bold mb-5 font-raleway'>Ubah Menu</h1>
         <div className='bg-white min-h-screen rounded-lg p-10'>
           <div>
             <form onSubmit={submit}>
@@ -33,7 +33,7 @@ function MenusEdit({menu, errors}) {
                 <input type="number" id="harga" name="price" value={data.price} onChange={e => setData('price', e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
               </div>
               <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900 " htmlFor="user_avatar">Upload file</label>
+                <label className="block mb-2 text-sm font-medium text-gray-900 " htmlFor="user_avatar">Upload Gambar</label>
                 <input name="image" accept="image/png, image/gif, image/jpeg" onChange={e => setData('image', e.target.files[0])} className="block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50  focus:outline-none 0 " aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                 {errors.image && (
                   <div className="text-red-500">{errors.image}</div>

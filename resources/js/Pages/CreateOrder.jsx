@@ -66,7 +66,7 @@ function CreateOrder({ products }) {
         <div className="w-4/12 print:w-96 print:border print:border-gray-500 p-5 h-full print:h-fit max-h-screen fixed right-0 print:relative">
           <div className="bg-white rounded-lg shadow-lg print:shadow-none flex flex-col h-full">
             <div className="flex items-center border-b border-gray-200 p-3">
-              <div className='font-semibold text-2xl mx-auto print:hidden'>New Customer</div>
+              <div className='font-semibold text-2xl mx-auto print:hidden font-raleway'>New Customer</div>
               <div className='font-semibold text-2xl mx-auto hidden print:block'>Bill</div>
             </div>
             <div className="flex items-center border-b border-gray-200 p-1">
@@ -88,7 +88,7 @@ function CreateOrder({ products }) {
 
                 </table>
               ) : (
-                <div className='text-center'>Order Masih Kosong</div>
+                <div className='text-center text-gray-700'>Order Masih Kosong</div>
               )}
 
 

@@ -32,19 +32,19 @@ function MenusCreate({errors}) {
                 <input type="number" id="harga" name="price" value={data.price} onChange={e => setData('price', e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
               </div>
               <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="image">Upload file</label>
+                <label className="block mb-2 text-sm font-medium text-gray-900" htmlFor="image">Upload Gambar</label>
                 <input name="image" accept="image/png, image/gif, image/jpeg" onChange={e => setData('image', e.target.files[0])} className="block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 focus:outline-none" id="image" type="file" />
                 {errors.image && (
                   <div className="text-red-500">{errors.image}</div>
                 )}
               </div>
               {progress && (
-              <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-6">
+              <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
                 <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: progress.percentage+"%" }}></div>
               </div>
               )}
             
-              <button type="submit" className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+              <button type="submit" className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
             </form>
           </div>
         </div>
