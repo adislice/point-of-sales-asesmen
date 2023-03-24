@@ -49,7 +49,7 @@ function ChargeModal({ total, onCloseClick }) {
               </div>
               <div className="mb-6 grow">
                 <label htmlFor="uang_kembali" className="block mb-2 text-sm font-medium text-gray-900 ">Uang Kembalian (Rp.)</label>
-                <input type="number" disabled id="uang_kembali" name="price" value={kembalian} onChange={e => setKembalian(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
+                <input type="text" disabled id="uang_kembali" name="price" value={formatCurrency(kembalian)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
               </div>
             </div>
           </div>
