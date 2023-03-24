@@ -61,6 +61,8 @@ function CreateOrder({ products }) {
             {products.map(menu => (
               <FoodMenuItem menu={menu} addMenuToOrders={addMenuToOrders} key={menu.id} />
             ))}
+            {products.length === 0 ? (<div className='text-gray-700 p-4'>Menu masih kosong. Silahkan tambah menu di halaman <b>Kelola Menu</b></div>) : null}
+            
           </div>
         </div>
         <div className="w-4/12 print:w-96 print:border print:border-gray-500 p-5 h-full print:h-fit max-h-screen fixed right-0 print:relative">

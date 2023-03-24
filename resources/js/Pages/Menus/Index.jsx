@@ -81,6 +81,7 @@ function MenusIndex({ menus }) {
                     </td>
                   </tr>
                 ))}
+                {menus.length === 0 ? (<tr><td colSpan={4} className='text-gray-700 text-center p-10'>Menu masih kosong. Silahkan klik <b>Tambah Menu</b> </td></tr>) : null}
 
               </tbody>
             </table>
